@@ -1,3 +1,972 @@
 {
-	"openapi": "3.0.1"
+	"openapi": "3.0.1",
+	"info": {
+		"title": "Conexos ERP",
+		"description": "Essa API é a principal para utilização de outros EndPoints.\nApós o retorno da requisição os outros endpoints deverão ser realizados com os parâmetros \"Cnx-filCod\" e \"Cnx-usnCod\"\nsetados no HEADER. Seus respectivos valores serão recuperados pelos atributos \"filCod\" e \"usnCod\" do response desta API.\n\nO usuário de acesso deverá ser criado na tela convencional de acesso ao CONEXOS Cloud, e liberado os devidos acessos para empresa (filial) e a tela onde a API está relacionada.",
+		"version": "v0.0.1"
+	},
+	"servers": [
+		{
+			"url": "http://localhost:8080",
+			"description": "CONEXOS"
+		}
+	],
+	"tags": [
+		{
+			"name": "ETL_003",
+			"description": "Integração Cantu"
+		}
+	],
+	"paths": {
+		"/api-etl/etl003/{filCod}/{ediCod}/pedido/compra": {
+			"post": {
+				"tags": [
+					"ETL_003"
+				],
+				"summary": "Inserir pedido de compra",
+				"operationId": "insertPedidoCompra",
+				"parameters": [
+					{
+						"name": "filCod",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"name": "ediCod",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"name": "Cnx-filCod",
+						"in": "header",
+						"description": "Código filial",
+						"required": true
+					},
+					{
+						"name": "Cnx-usnCod",
+						"in": "header",
+						"description": "Código usuário",
+						"required": true
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PedidoCompraCantuDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {}
+					}
+				}
+			}
+		},
+		"/api-etl/etl003/{filCod}/{ediCod}/pedido/compra/nfe/entrada/gerar-xml": {
+			"post": {
+				"tags": [
+					"ETL_003"
+				],
+				"summary": "Gerar xml nota fiscal",
+				"operationId": "gerarXmlNota",
+				"parameters": [
+					{
+						"name": "filCod",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"name": "ediCod",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"name": "Cnx-filCod",
+						"in": "header",
+						"description": "Código filial",
+						"required": true
+					},
+					{
+						"name": "Cnx-usnCod",
+						"in": "header",
+						"description": "Código usuário",
+						"required": true
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/NotaFiscalCantuDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/NotaFiscalRespostaCantuDTO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api-etl/etl003/{filCod}/{ediCod}/pedido/compra/embarque/confirmar": {
+			"post": {
+				"tags": [
+					"ETL_003"
+				],
+				"summary": "Confirmar atendimento/embarque",
+				"operationId": "confirmarEmbarque",
+				"parameters": [
+					{
+						"name": "filCod",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"name": "ediCod",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"name": "Cnx-filCod",
+						"in": "header",
+						"description": "Código filial",
+						"required": true
+					},
+					{
+						"name": "Cnx-usnCod",
+						"in": "header",
+						"description": "Código usuário",
+						"required": true
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ConfirmacaoEmbarqueCantuDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {}
+					}
+				}
+			}
+		},
+		"/api-etl/etl003/{filCod}/{ediCod}/pedido/compra/situacao/{numeroPedido}": {
+			"get": {
+				"tags": [
+					"ETL_003"
+				],
+				"summary": "Situação do processamento do pedido de compra",
+				"operationId": "situacaoProcessamentoPedido",
+				"parameters": [
+					{
+						"name": "filCod",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"name": "ediCod",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"name": "numeroPedido",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "Cnx-filCod",
+						"in": "header",
+						"description": "Código filial",
+						"required": true
+					},
+					{
+						"name": "Cnx-usnCod",
+						"in": "header",
+						"description": "Código usuário",
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/EtlProcessStatusDTO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api-etl/etl003/{filCod}/{ediCod}/pedido/compra/embarque": {
+			"get": {
+				"tags": [
+					"ETL_003"
+				],
+				"summary": "Obter lista de atendimentos/embarques finalizados",
+				"operationId": "getEmbarques",
+				"parameters": [
+					{
+						"name": "filCod",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"name": "ediCod",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"name": "Cnx-filCod",
+						"in": "header",
+						"description": "Código filial",
+						"required": true
+					},
+					{
+						"name": "Cnx-usnCod",
+						"in": "header",
+						"description": "Código usuário",
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CnxListResponseEmbarqueCantuDTO"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"EnderecoCantuDTO": {
+				"required": [
+					"bairro",
+					"cepZipCode",
+					"cidade",
+					"complemento",
+					"logradouro",
+					"numeroLogradouro",
+					"siglaPaisISO2",
+					"siglaUf"
+				],
+				"type": "object",
+				"properties": {
+					"siglaPaisISO2": {
+						"maxLength": 2,
+						"type": "string",
+						"description": "Sigla País"
+					},
+					"cidade": {
+						"maxLength": 50,
+						"type": "string",
+						"description": "Cidade"
+					},
+					"logradouro": {
+						"maxLength": 50,
+						"type": "string",
+						"description": "Logradouro"
+					},
+					"numeroLogradouro": {
+						"maxLength": 10,
+						"type": "string",
+						"description": "Número"
+					},
+					"bairro": {
+						"maxLength": 50,
+						"type": "string",
+						"description": "Bairro"
+					},
+					"siglaUf": {
+						"maxLength": 2,
+						"type": "string",
+						"description": "UF"
+					},
+					"complemento": {
+						"maxLength": 255,
+						"type": "string",
+						"description": "Complemento"
+					},
+					"telefone": {
+						"maxLength": 20,
+						"type": "string",
+						"description": "Telefone"
+					},
+					"cepZipCode": {
+						"maxLength": 20,
+						"type": "string",
+						"description": "CEP"
+					}
+				},
+				"description": "Endereço"
+			},
+			"ItemPedidoCantuDTO": {
+				"required": [
+					"excluido",
+					"idProduto",
+					"ncm",
+					"numeroItem",
+					"pesoLiquido",
+					"quantidade",
+					"siglaUnidade",
+					"valorTotalLiquido",
+					"valorUnitario"
+				],
+				"type": "object",
+				"properties": {
+					"excluido": {
+						"type": "boolean",
+						"description": "Item excluído<ul><li>true - SIM</li><li>false - NÃO</li></ul>",
+						"enum": [
+							true,
+							false
+						]
+					},
+					"dataPrevisaoEntrega": {
+						"type": "string",
+						"description": "Previsão de Entraga",
+						"format": "date-time"
+					},
+					"ncm": {
+						"maxLength": 20,
+						"minLength": 1,
+						"type": "string",
+						"description": "NCM"
+					},
+					"idProduto": {
+						"maxLength": 20,
+						"minLength": 1,
+						"type": "string",
+						"description": "Identificação Produto"
+					},
+					"siglaUnidade": {
+						"maxLength": 20,
+						"minLength": 1,
+						"type": "string",
+						"description": "Sigla Unidade"
+					},
+					"quantidade": {
+						"type": "number",
+						"description": "Quantidade"
+					},
+					"valorTotalLiquido": {
+						"type": "number",
+						"description": "Valor Total Líquido"
+					},
+					"pesoLiquido": {
+						"type": "number",
+						"description": "Peso Líquido"
+					},
+					"valorUnitario": {
+						"type": "number",
+						"description": "Valor Unitário"
+					},
+					"observacao": {
+						"maxLength": 100,
+						"minLength": 0,
+						"type": "string",
+						"description": "Observação"
+					},
+					"numeroItem": {
+						"maxLength": 20,
+						"minLength": 1,
+						"type": "string",
+						"description": "Número Item"
+					}
+				},
+				"description": "Itens"
+			},
+			"PedidoCantuDTO": {
+				"required": [
+					"dataEmissao",
+					"dataPrevisaoEntrega",
+					"idArmazem",
+					"idCfop",
+					"idCliente",
+					"idCondicaoPagamento",
+					"idEncomendante",
+					"idFilial",
+					"idFornecedor",
+					"idImportador",
+					"itensPedido",
+					"numeroPedido",
+					"pessoas",
+					"produtos",
+					"siglaIncoterm",
+					"siglaMoeda",
+					"status",
+					"tipoOperacao",
+					"tipoPedido"
+				],
+				"type": "object",
+				"properties": {
+					"numeroPedido": {
+						"maxLength": 20,
+						"minLength": 1,
+						"type": "string",
+						"description": "Número"
+					},
+					"tipoPedido": {
+						"maxLength": 20,
+						"minLength": 1,
+						"type": "string",
+						"description": "Tipo Pedido<ul><li>ZITR - POR CONTA E ORDEM DE TERCEIROS</li><li>ZINT - CONTA PRÓPRIA</li></ul>",
+						"enum": [
+							"ZITR",
+							"ZINT"
+						]
+					},
+					"idFilial": {
+						"maxLength": 20,
+						"minLength": 1,
+						"type": "string",
+						"description": "Identificação Filial"
+					},
+					"status": {
+						"maxLength": 20,
+						"minLength": 1,
+						"type": "string",
+						"description": "Situação"
+					},
+					"siglaMoeda": {
+						"maxLength": 20,
+						"minLength": 1,
+						"type": "string",
+						"description": "Moeda"
+					},
+					"dataEmissao": {
+						"type": "string",
+						"description": "Data Emissão",
+						"format": "date-time"
+					},
+					"dataPrevisaoEntrega": {
+						"type": "string",
+						"description": "Data Previsão Entrega",
+						"format": "date-time"
+					},
+					"idFornecedor": {
+						"maxLength": 20,
+						"minLength": 1,
+						"type": "string",
+						"description": "Identificação Fornecedor"
+					},
+					"idCliente": {
+						"maxLength": 20,
+						"minLength": 0,
+						"type": "string",
+						"description": "Identificação Cliente"
+					},
+					"idImportador": {
+						"maxLength": 20,
+						"minLength": 0,
+						"type": "string",
+						"description": "Identificação Importador"
+					},
+					"idEncomendante": {
+						"maxLength": 20,
+						"minLength": 0,
+						"type": "string",
+						"description": "Identificação Encomendante"
+					},
+					"idCondicaoPagamento": {
+						"maxLength": 20,
+						"minLength": 1,
+						"type": "string",
+						"description": "Identificação Condição de Pagamento"
+					},
+					"idArmazem": {
+						"maxLength": 20,
+						"minLength": 1,
+						"type": "string",
+						"description": "Identificação Armazém"
+					},
+					"idCfop": {
+						"maxLength": 20,
+						"minLength": 1,
+						"type": "string",
+						"description": "Identificação CFOP"
+					},
+					"tipoOperacao": {
+						"maxLength": 20,
+						"minLength": 1,
+						"type": "string",
+						"description": "Tipo de Operação"
+					},
+					"siglaIncoterm": {
+						"maxLength": 20,
+						"minLength": 0,
+						"type": "string",
+						"description": "Incoterms"
+					},
+					"itensPedido": {
+						"type": "array",
+						"description": "Itens",
+						"items": {
+							"$ref": "#/components/schemas/ItemPedidoCantuDTO"
+						}
+					},
+					"pessoas": {
+						"type": "array",
+						"description": "Pessoas",
+						"items": {
+							"$ref": "#/components/schemas/PessoaCantuDTO"
+						}
+					},
+					"produtos": {
+						"type": "array",
+						"description": "Produtos",
+						"items": {
+							"$ref": "#/components/schemas/ProdutoCantuDTO"
+						}
+					}
+				},
+				"description": "Pedido"
+			},
+			"PedidoCompraCantuDTO": {
+				"required": [
+					"pedido"
+				],
+				"type": "object",
+				"properties": {
+					"pedido": {
+						"$ref": "#/components/schemas/PedidoCantuDTO"
+					}
+				},
+				"description": "Pedido de Compra"
+			},
+			"PessoaCantuDTO": {
+				"required": [
+					"documentoFederal",
+					"endereco",
+					"idPessoa",
+					"nomePessoa"
+				],
+				"type": "object",
+				"properties": {
+					"idPessoa": {
+						"maxLength": 20,
+						"minLength": 1,
+						"type": "string",
+						"description": "Identificação"
+					},
+					"nomePessoa": {
+						"maxLength": 50,
+						"type": "string",
+						"description": "Nome"
+					},
+					"documentoFederal": {
+						"maxLength": 20,
+						"type": "string",
+						"description": "Documento Federal (Se internacional, enviar 99999999999999)"
+					},
+					"documentoEstadual": {
+						"maxLength": 20,
+						"type": "string",
+						"description": "Documento Estadual"
+					},
+					"endereco": {
+						"$ref": "#/components/schemas/EnderecoCantuDTO"
+					}
+				},
+				"description": "Pessoas"
+			},
+			"ProdutoCantuDTO": {
+				"required": [
+					"idProduto",
+					"ncm",
+					"nomeProduto",
+					"siglaUnidadePrimaria",
+					"unidades"
+				],
+				"type": "object",
+				"properties": {
+					"idProduto": {
+						"maxLength": 20,
+						"minLength": 1,
+						"type": "string",
+						"description": "Identificação Produto"
+					},
+					"nomeProduto": {
+						"maxLength": 50,
+						"type": "string",
+						"description": "Nome"
+					},
+					"siglaUnidadePrimaria": {
+						"type": "string",
+						"description": "Identificação Unidade Primária"
+					},
+					"ncm": {
+						"maxLength": 20,
+						"type": "string",
+						"description": "Ncm"
+					},
+					"unidades": {
+						"type": "array",
+						"description": "Unidades",
+						"items": {
+							"$ref": "#/components/schemas/UnidadeCantuDTO"
+						}
+					}
+				},
+				"description": "Produtos"
+			},
+			"UnidadeCantuDTO": {
+				"required": [
+					"pesoBruto",
+					"pesoLiquido",
+					"quantidadeEmbalagem",
+					"siglaUnidade"
+				],
+				"type": "object",
+				"properties": {
+					"siglaUnidade": {
+						"type": "string",
+						"description": "Sigla Unidade Primária"
+					},
+					"siglaUnidadeIso": {
+						"type": "string",
+						"description": "Sigla Unidade Iso"
+					},
+					"pesoLiquido": {
+						"type": "number",
+						"description": "Peso Líquido"
+					},
+					"pesoBruto": {
+						"type": "number",
+						"description": "Peso Bruto"
+					},
+					"quantidadeEmbalagem": {
+						"type": "integer",
+						"description": "Quantidade Embalagem",
+						"format": "int64"
+					},
+					"codigoBarras": {
+						"maxLength": 20,
+						"type": "string",
+						"description": "Código Barras"
+					}
+				},
+				"description": "Unidades"
+			},
+			"NotaFiscalCantuDTO": {
+				"type": "object",
+				"properties": {
+					"filial": {
+						"maxLength": 10,
+						"type": "integer",
+						"description": "Cód. Filial",
+						"format": "int64"
+					},
+					"tipoDocumento": {
+						"maxLength": 2,
+						"type": "integer",
+						"description": "Tipo do Documento - (1- Saida, 2- Entrada)",
+						"format": "int64"
+					},
+					"idDocumento": {
+						"maxLength": 10,
+						"type": "integer",
+						"description": "Código do Documento",
+						"format": "int64"
+					}
+				}
+			},
+			"NotaFiscalRespostaCantuDTO": {
+				"type": "object"
+			},
+			"ConfirmacaoEmbarqueCantuDTO": {
+				"required": [
+					"filial",
+					"idAtendimento",
+					"idPedido",
+					"numeroPedido",
+					"status",
+					"tipoPedido"
+				],
+				"type": "object",
+				"properties": {
+					"filial": {
+						"type": "integer",
+						"description": "Identificação Filial",
+						"format": "int64"
+					},
+					"tipoPedido": {
+						"type": "integer",
+						"description": "Tipo do Pedido",
+						"format": "int64"
+					},
+					"idPedido": {
+						"type": "integer",
+						"description": "Cód. Pedido",
+						"format": "int64"
+					},
+					"idAtendimento": {
+						"type": "integer",
+						"description": "Cód. de atendimento",
+						"format": "int64"
+					},
+					"numeroPedido": {
+						"type": "string",
+						"description": "Número do Pedido"
+					},
+					"status": {
+						"type": "integer",
+						"description": "Status do Embarque (1- enviado, 2- confirmado com sucesso, 3 - com erro, 4 - ignorado)",
+						"format": "int64"
+					},
+					"mensagemStatus": {
+						"type": "string",
+						"description": "Detalhe do status"
+					},
+					"novosItens": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/NovoItemCantuDTO"
+						}
+					}
+				}
+			},
+			"NovoItemCantuDTO": {
+				"required": [
+					"idItemAtendimento",
+					"numeroItemNovo",
+					"numeroItemOrigem",
+					"quantidade"
+				],
+				"type": "object",
+				"properties": {
+					"idItemAtendimento": {
+						"type": "integer",
+						"description": "Código do item do atendimento",
+						"format": "int64"
+					},
+					"numeroItemOrigem": {
+						"type": "string",
+						"description": "Número do item de origem no pedido"
+					},
+					"numeroItemNovo": {
+						"type": "string",
+						"description": "Número do novo item gerado"
+					},
+					"quantidade": {
+						"type": "number",
+						"description": "Quantidade"
+					}
+				}
+			},
+			"EtlProcessStatusDTO": {
+				"type": "object",
+				"properties": {
+					"status": {
+						"type": "string",
+						"enum": [
+							"STARTED",
+							"PROCESSING",
+							"PROCESSED_WITH_ERROR",
+							"FINISHED"
+						]
+					},
+					"detail": {
+						"type": "string"
+					}
+				}
+			},
+			"CnxListResponseEmbarqueCantuDTO": {
+				"type": "object",
+				"properties": {
+					"count": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"pageNumber": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"summary": {
+						"$ref": "#/components/schemas/CnxResponseSummary"
+					},
+					"rows": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/EmbarqueCantuDTO"
+						}
+					}
+				}
+			},
+			"CnxResponseSummary": {
+				"type": "object"
+			},
+			"EmbarqueCantuDTO": {
+				"type": "object",
+				"properties": {
+					"filial": {
+						"maxLength": 10,
+						"type": "integer",
+						"description": "Cód. Filial",
+						"format": "int64"
+					},
+					"tipoPedido": {
+						"maxLength": 2,
+						"type": "integer",
+						"description": "Tipo do Pedido",
+						"format": "int64"
+					},
+					"idPedido": {
+						"maxLength": 10,
+						"type": "integer",
+						"description": "Cód. Pedido",
+						"format": "int64"
+					},
+					"idAtendimento": {
+						"maxLength": 10,
+						"type": "integer",
+						"description": "Cód. Programação",
+						"format": "int64"
+					},
+					"numeroPedido": {
+						"maxLength": 20,
+						"type": "string",
+						"description": "Número do Pedido"
+					},
+					"idCondicaoPagamento": {
+						"maxLength": 10,
+						"type": "string",
+						"description": "Condição de Pagamento"
+					},
+					"siglaIncoterm": {
+						"maxLength": 10,
+						"type": "string",
+						"description": "Condição de Pagamento"
+					},
+					"itens": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ItemEmbarqueCantuDTO"
+						}
+					}
+				}
+			},
+			"ItemEmbarqueCantuDTO": {
+				"type": "object",
+				"properties": {
+					"numeroItem": {
+						"maxLength": 10,
+						"type": "string",
+						"description": "Identificador do Fornecedor"
+					},
+					"nomeItem": {
+						"maxLength": 50,
+						"type": "string",
+						"description": "Descrição Produto"
+					},
+					"idItemAtendimento": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"idMaterial": {
+						"maxLength": 10,
+						"type": "string",
+						"description": "Cód. Produto"
+					},
+					"idRefenciaExterna": {
+						"maxLength": 50,
+						"type": "string",
+						"description": "Referência Externa"
+					},
+					"quantidade": {
+						"type": "number",
+						"description": "Quantidade Programada",
+						"format": "38,6"
+					},
+					"siglaUnidade": {
+						"type": "string",
+						"description": "Sigla Unidade"
+					},
+					"ncm": {
+						"maxLength": 20,
+						"type": "string",
+						"description": "NCM"
+					},
+					"dataPrevisaoEntrega": {
+						"type": "string",
+						"description": "Data Entrega Cliente",
+						"format": "date-time"
+					}
+				}
+			}
+		}
+	}
 }
