@@ -2,7 +2,7 @@
 	"openapi": "3.0.1",
 	"info": {
 		"title": "Conexos ERP",
-		"description": "Essa API é a principal para utilização de outros EndPoints.\nApós o retorno da requisição os outros endpoints deverão ser realizados com os parâmetros \"Cnx-filCod\" e \"Cnx-usnCod\"\nsetados no HEADER. Seus respectivos valores serão recuperados pelos atributos \"filCod\" e \"usnCod\" do response desta API.\n\nO usuário de acesso deverá ser criado na tela convencional de acesso ao CONEXOS Cloud, e liberado os devidos acessos para empresa (filial) e a tela onde a API está relacionada.",
+		"description": "Api Documentation Conexos ERP for Level Integration",
 		"version": "v0.0.1"
 	},
 	"externalDocs": {
