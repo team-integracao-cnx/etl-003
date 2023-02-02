@@ -2,7 +2,7 @@
 	"openapi": "3.0.1",
 	"info": {
 		"title": "Conexos ERP",
-		"description": "Api Documentation Conexos ERP for Level Integration",
+		"description": "Api Documentation Conexos ERP for Cantu Integration",
 		"version": "v0.0.1"
 	},
 	"externalDocs": {
