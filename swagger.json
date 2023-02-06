@@ -193,7 +193,7 @@
 				}
 			}
 		},
-		"/api-etl/etl003/{filCod}/{ediCod}/pedido/compra/situacao/{numeroPedido}": {
+		"/api-etl/etl003/{filCod}/{ediCod}/pedido/compra/situacao/{processingId}": {
 			"get": {
 				"tags": [
 					"ETL_003"
@@ -220,12 +220,13 @@
 						}
 					},
 					{
-						"name": "numeroPedido",
+						"name": "processingId",
 						"in": "path",
 						"required": true,
-						"schema": {
-							"type": "string"
-						}
+						"schema":{
+                            				"type":"integer",
+                            				"format":"int64"
+                       				}
 					},
 					{
 						"name": "Cnx-filCod",
