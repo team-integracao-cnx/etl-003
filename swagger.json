@@ -729,12 +729,6 @@
 						"description": "Cód. Filial",
 						"format": "int64"
 					},
-					"tipoDocumento": {
-						"maxLength": 2,
-						"type": "integer",
-						"description": "Tipo do Documento - (1- Saida, 2- Entrada)",
-						"format": "int64"
-					},
 					"idDocumento": {
 						"maxLength": 10,
 						"type": "integer",
@@ -831,6 +825,7 @@
 				"properties": {
 					"status": {
 						"type": "string",
+						 "description":"Status processamento: STARTED, PROCESSING, PROCESSED_WITH_ERROR, FINISHED",
 						"enum": [
 							"STARTED",
 							"PROCESSING",
@@ -839,7 +834,8 @@
 						]
 					},
 					"detail": {
-						"type": "string"
+						"type": "string",
+						 "description":"Detalhes do processamento"
 					}
 				}
 			},
