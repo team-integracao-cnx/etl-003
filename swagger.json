@@ -737,9 +737,91 @@
 					}
 				}
 			},
+            "DespesaCantu":{
+                "type":"object",
+                "properties":{
+                    "numeroPo":{
+                        "type":"string",
+                        "description":"Numero PO"
+                    },
+                    "itemPo":{
+                        "type":"string",
+                        "description":"Número do item do pedido"
+                    },
+                    "quantidade":{
+                        "type":"string",
+                        "description":"Quantidade",
+                        "format":"30,6"
+                    },
+                    "itemDespesas":{
+                        "type":"array",
+                        "items":{
+                            "$ref":"#/components/schemas/ItemDespesaCantu"
+                        }
+                    }
+                }
+            },
+            "ItemDespesaCantu":{
+                "type":"object",
+                "properties":{
+                    "idDespesa":{
+                        "type":"string",
+                        "description":"Id. despesa"
+                    },
+                    "vlrDespesa":{
+                        "maxLength":10,
+                        "type":"number",
+                        "description":"Valor Despesa"
+                    },
+                    "moeda":{
+                        "maxLength":10,
+                        "type":"string",
+                        "description":"Moeda"
+                    },
+                    "taxaCambio":{
+                        "maxLength":10,
+                        "type":"number",
+                        "description":"Taxa Cambio"
+                    },
+                    "idPessoa":{
+                        "maxLength":10,
+                        "type":"string",
+                        "description":"Cód. da pessoa"
+                    }
+                }
+            },
 			"NotaFiscalRespostaCantuDTO": {
-				"type": "object"
-			},
+				"type":"object",
+                "properties":{
+                    "filial":{
+                        "maxLength":10,
+                        "type":"integer",
+                        "description":"Cód. Filial",
+                        "format":"int64"
+                    },
+                    "tipoDocumento":{
+                        "maxLength":2,
+                        "type":"integer",
+                        "description":"Tipo do Documento - (1- Saida, 2- Entrada)",
+                        "format":"int64"
+                    },
+                    "idDocumento":{
+                        "maxLength":10,
+                        "type":"integer",
+                        "description":"Código do Documento",
+                        "format":"int64"
+                    },
+                    "listDespesas":{
+                        "type":"array",
+                        "items":{
+                            "$ref":"#/components/schemas/DespesaCantu"
+                        }
+                    },
+                    "xml":{
+                        "type":"string"
+                    }
+                }
+            },
 			"ConfirmacaoEmbarqueCantuDTO": {
 				"required": [
 					"filial",
